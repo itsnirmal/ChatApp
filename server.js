@@ -13,12 +13,10 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
-
-app.use(express.json());
-
 const allowedOrigins = [
     'http://localhost:3000',
     'https://chatrix.vercel.app',
+    'https://chatapp-production-d27a.up.railway.app',
 ];
 
 app.use(cors({
@@ -32,12 +30,13 @@ app.use(cors({
     },
     credentials: true, 
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  
-    allowedHeaders: ['Content-Type', 'Authorization'],   
-    optionsSuccessStatus: 204  
+    allowedHeaders: ['Content-Type', 'Authorization'],     
 }));
 
-
 app.options('*', cors());
+
+app.use(express.json());
+
 
 
 
@@ -99,7 +98,7 @@ const pusher = new Pusher({
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 app.get('/', (req, res) => {
-  res.send('Welcome to the Advanced Chat App!');
+  res.send('Welcome to the Chatrix Chat App!');
 });
 
 // Token validation endpoint
