@@ -14,7 +14,7 @@ const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const response = await fetch('https://chatapp-production-d27a.up.railway.app/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

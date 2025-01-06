@@ -88,7 +88,7 @@ const ChatBox = () => {
 
   const fetchJoinedChats = async (token: string) => {
     try {
-      const response = await fetch('http://localhost:3001/joined-rooms', {
+      const response = await fetch('https://chatapp-production-d27a.up.railway.app/joined-rooms', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -109,7 +109,7 @@ const ChatBox = () => {
 
   const fetchMessages = async (chatCode: string, token: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/messages?code=${chatCode}`, {
+      const response = await fetch(`https://chatapp-production-d27a.up.railway.app/messages?code=${chatCode}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -142,7 +142,7 @@ const ChatBox = () => {
     const randomCode = Math.random().toString(36).substr(2, 8);
 
     try {
-      const response = await fetch('http://localhost:3001/create-room', {
+      const response = await fetch('https://chatapp-production-d27a.up.railway.app/create-room', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ const ChatBox = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3001/validate-token', {
+        const response = await fetch('https://chatapp-production-d27a.up.railway.app/validate-token', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -261,7 +261,7 @@ const ChatBox = () => {
     // Check if /help should be included
     const messageToSend = includeHelp ? `/help ${input}` : input;
 
-    await fetch('http://localhost:3001/message', {
+    await fetch('https://chatapp-production-d27a.up.railway.app/message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -288,7 +288,7 @@ const ChatBox = () => {
         }
 
         try {
-          const response: ValidateRoomAccessResponse = await fetch(`http://localhost:3001/validate-room`, {
+          const response: ValidateRoomAccessResponse = await fetch(`https://chatapp-production-d27a.up.railway.app/validate-room`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -317,7 +317,7 @@ const handleDeleteRoom = async (roomCode: string): Promise<void> => {
   }
 
   try {
-    const response: DeleteRoomResponse = await fetch(`http://localhost:3001/delete-room`, {
+    const response: DeleteRoomResponse = await fetch(`https://chatapp-production-d27a.up.railway.app/delete-room`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -356,7 +356,7 @@ const joinRoom = async (roomCode: string) => {
   }
 
   try {
-    const response = await fetch('http://localhost:3001/join-room', {
+    const response = await fetch('https://chatapp-production-d27a.up.railway.app/join-room', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -379,7 +379,7 @@ const joinRoom = async (roomCode: string) => {
 
 const fetchAllRooms = async (token: string) => {
   try {
-    const response = await fetch('http://localhost:3001/all-rooms', {
+    const response = await fetch('https://chatapp-production-d27a.up.railway.app/all-rooms', {
       headers: { Authorization: `Bearer ${token}` },
     });
 
