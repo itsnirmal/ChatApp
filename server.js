@@ -15,16 +15,27 @@ const port = 3001;
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://chatrix.vercel.app',
+    'https://chatrixus.vercel.app',
     'https://chatapp-production-d27a.up.railway.app',
 ];
 
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
-}));
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS not allowed for this origin.'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false
+};
 
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));  // Correct handling for OPTIONS method (preflight)
+
 
 app.use(express.json());
 
