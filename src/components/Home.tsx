@@ -22,7 +22,7 @@ const HomeComponent: React.FC = () => {
         className="p-6 bg-gray-800 rounded-lg shadow-lg text-center"
       >
         <MessageSquare size={56} className="text-blue-500 mb-4 mx-auto" />
-        <h1 className="text-2xl font-semibold mb-4">Chatrix</h1>
+        <h1 className="text-2xl font-semibold mb-4">Chatrixus</h1>
         <p className="mb-6">Dive into conversations</p>
         <Button type="button" onClick={handleExplore} className="w-full bg-blue-600 hover:bg-blue-700">
           Explore Now
