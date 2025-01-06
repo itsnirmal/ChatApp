@@ -18,6 +18,7 @@ const allowedOrigins = [
     'https://chatrix.vercel.app',  
 ];
 
+app.use(express.json());
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -28,7 +29,7 @@ app.use(cors({
     },
     credentials: true  
 }));
-app.use(express.json());
+
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
