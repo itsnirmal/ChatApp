@@ -13,22 +13,29 @@ dotenv.config();
 const app = express();
 const port = 3001;
 
-const allowedOrigins = [
-    'http://localhost:3000', 
-    'https://chatrix.vercel.app',  
-];
 
 app.use(express.json());
+
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://chatrix.vercel.app',
+];
+
 app.use(cors({
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.error(`Blocked by CORS: ${origin}`);
             callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true  
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
 }));
+
+app.options('*', cors());
 
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -112,7 +119,7 @@ app.get('/messages', authenticateToken, async (req, res) => {
 
 app.get('/joined-rooms', authenticateToken, async (req, res) => {
   try {
-    const { userId } = req.user.userId;
+    const { userId } = req.user;
 
     // Fetch rooms where the user is a member or creator
         const rooms = await Room.find({
@@ -263,7 +270,7 @@ app.post('/create-room', authenticateToken, async (req, res) => {
     await room.save();
 
     // Notify via Pusher (optional, if used for real-time updates)
-    pusher.trigger('rooms', 'new-room', { code });
+    pusher.trigger('rooms', 'new-room', { code, name });
 
     // Return room details, including the creator
     res.status(201).json({
@@ -293,7 +300,7 @@ app.delete('/delete-room', authenticateToken, async (req, res) => {
 
     // Check if the user requesting deletion is actually the creator of the room
     if (room.creator.toString() !== req.user.userId) {
-      return res.status(403).json({ error: 'Only create can delete this room.' });
+      return res.status(403).json({ error: 'Only creater can delete this room.' });
     }
 
     // Optionally, also delete messages associated with this room:
