@@ -426,7 +426,7 @@ const fetchAllRooms = async (token: string) => {
         transition={{ duration: 0.5 }}
         className="flex justify-between items-center p-4 bg-gray-800 shadow"
       >
-        <h1 className="text-xl font-semibold">Sentiment Chat</h1>
+        <h1 className="text-xl font-semibold">Chatrixus</h1>
         
         {/* Hamburger Menu Icon (visible on small screens) */}
         <Menu
